@@ -42,7 +42,7 @@ ENV SPARK_WORKER_WEBUI_PORT 8081
 
 # configure cassandra
 ENV CASSANDRA_CONFIG /etc/cassandra
-
+ENV CASSANDRA_BROADCAST_ADDRESS auto
 # listen to all rpc
 RUN sed -ri ' \
 		s/^(rpc_address:).*/\1 0.0.0.0/; \
