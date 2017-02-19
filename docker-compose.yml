@@ -1,0 +1,7 @@
+
+services:
+  image: minio/minio
+  container_name: minio
+  command: server /local/export
+  ports:
+    - "9000"
