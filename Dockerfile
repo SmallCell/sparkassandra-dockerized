@@ -7,10 +7,10 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # install java & curl
 RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" > /etc/apt/sources.list.d/webupd8team-java.list
 RUN echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list.d/webupd8team-java.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
+#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
 RUN apt-get -y update
 RUN /bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install oracle-java8-installer oracle-java8-set-default curl
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y --force-yes install oracle-java8-installer oracle-java8-set-default curl
 
 # download and install spark
 RUN curl -s http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz | tar -xz -C /usr/local/

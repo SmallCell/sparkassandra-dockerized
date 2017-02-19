@@ -1,4 +1,4 @@
-# How to setup a cluster with Spark 1.3 + Cassandra 2.1 using Docker ?
+# How to setup a cluster with Spark 2.1 + Cassandra 3.6 using Docker 1.13 ?
 
 Spark is hype, Cassandra is cool and docker is awesome. Let's have some "fun" with all of this to be able to try machine learning without the pain to install C* and Spark on your computer.
 
@@ -14,9 +14,9 @@ Let's Go!
 
 ## Install docker and git
 
+
 ## Build Docker image
 docker build --build-arg http_proxy=$http_proxy --build-arg https_proxy=$https_proxy -t sparkassandra-dockerized .
-
 
 ## Run your own Spark 2.1 + Cassandra 3.6 cluster using Docker!
 
