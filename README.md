@@ -95,4 +95,45 @@ scala>println(rdd.map(_.getInt("value")).sum)
 
 Et voila !
 
+## Working with Docker composer
+
+Default configuration:
+* 1 Spark master
+* 1 Cassandra + Spark worker
+* N Pool (Cassandra + Spark worker)
+* 1 S3 service
+
+Exposed interfaces:
+* Spark master WebUI port http://127.0.0.1:8080
+* S3 Browser Access  http://127.0.0.1:9000
+* CQL on first Cassandra instance
+* Spark master job submission port
+
+```
+# start Saprk sluster
+docker-compose up -d
+```
+
+```
+# scale Workers pool
+docker-compose scale worker=6
+```
+
+```
+# stop and remove cluster
+docker-compose scale worker=0
+docker-compose stop
+docker-compose rm
+```
+
+Connect to Cassandra with:
+```
+~/.ccm/repository/3.6/bin/cqlsh
+```
+Connect to Spark Master with:
+```
+/usr/lib/spark/bin/spark-shell --master spark://localhost:7077 --jars scripts/spark-cassandra-connector-2.0.0-M2-s_2.11.jar --conf spark.cassandra.connection.host=localhost
+```
+
+
 ## THE END of the boring installation part, now eat and digest data to extract value!

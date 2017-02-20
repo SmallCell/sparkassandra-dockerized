@@ -22,7 +22,8 @@ RUN curl -s https://www.apache.org/dist/cassandra/KEYS | apt-key add -
 RUN echo 'deb http://www.apache.org/dist/cassandra/debian 36x main' >> /etc/apt/sources.list.d/cassandra.list
 RUN apt-get update \
 	&& apt-get install -y cassandra \
-	&& rm -rf /var/lib/apt/lists/*
+        && apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # copy some script to run spark
 COPY scripts/start-master.sh /start-master.sh

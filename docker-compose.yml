@@ -1,7 +1,46 @@
 
-services:
+
+# Container that runs Spark Master services
+spark_master:
+  image: sparkassandra-dockerized
+  container_name: spark_master
+  # build: .
+  command: /start-master.sh
+  tty: true
+  stdin_open: true
+  ports:
+    # Spark master WebUI port http://127.0.0.1:8080
+    - "8080:8080"
+    # Spark master job submission port
+    - "7077:7077"
+  # cpu_shares: 3000
+  # mem_limit: 2g
+
+spark_cassandra:
+  image: sparkassandra-dockerized
+  container_name: spark_cassandra
+  links:
+    - spark_master
+  ports:
+    # C* CQL
+    - "9042:9042"
+  # cpu_shares: 3000
+  # mem_limit: 4g
+
+# scalable workers pool
+worker:
+  image: sparkassandra-dockerized
+  links:
+    - spark_master
+    - spark_cassandra:cassandra
+  # cpu_shares: 3000
+  # mem_limit: 4g
+
+# Container that runs S3 service
+minio:
   image: minio/minio
   container_name: minio
-  command: server /local/export
+  command: server /export
   ports:
-    - "9000"
+    # Browser Access  http://127.0.0.1:9000
+    - "9000:9000"
